@@ -3,9 +3,9 @@
        id="{{ $quillId }}"
        class="{{ $classes }}"></div>
 
-  <link href="/third-party/quill/quill.snow.css"
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css"
         rel="stylesheet">
-  <script src="/third-party/quill/quill.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.js"></script>
 
   <script>
     var toolbar = JSON.parse(JSON.stringify(@JSON($toolbar)));

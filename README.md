@@ -25,12 +25,6 @@ After you've installed the package, you can optionally publish the config to cha
 php artisan vendor:publish --tag=livewire-quill:config
 ```
 
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag=":package_slug-config"
-```
-
 This is the contents of the published config file:
 
 ```php

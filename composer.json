@@ -1,6 +1,6 @@
 {
     "name": "joelwmale/livewire-quill",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Easily add QuillJS with image support to any Laravel Livewire component.",
     "keywords": [
         "joelwmale",
@@ -20,7 +20,7 @@
         "php": "^7.3|^8.0|^8.1|8.2",
         "illuminate/support": "^7.0|^8.0|^9.0|^10.0",
         "illuminate/contracts": "^10.0",
-        "livewire/livewire": "^2.0"
+        "livewire/livewire": "^2.0|^3.0"
     },
     "require-dev": {
         "laravel/pint": "^1.10",

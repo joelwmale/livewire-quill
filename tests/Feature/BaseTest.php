@@ -1,6 +1,7 @@
 <?php
 
 use Joelwmale\LivewireQuill\Http\Livewire\LivewireQuill;
+
 use function Pest\Livewire\livewire;
 
 it('throws an exception if not quillId is passed in', function () {

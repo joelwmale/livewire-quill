@@ -2,4 +2,6 @@
 
 namespace Joelwmale\LivewireQuill;
 
-class LivewireQuill {}
+class LivewireQuill
+{
+}

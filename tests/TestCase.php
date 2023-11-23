@@ -37,13 +37,13 @@ class TestCase extends Orchestra
         ];
     }
 
-        protected function getEnvironmentSetUp($app)
-        {
-            $app['config']->set('view.paths', [
-                __DIR__.'/../views',
-                resource_path('views'),
-            ]);
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('view.paths', [
+            __DIR__.'/../views',
+            resource_path('views'),
+        ]);
 
-            $app['config']->set('app.key', 'base64:Hupx3yAySikrM2/edkZQNQHslgDWYfiBfCuSThJ5SK8=');
-        }
+        $app['config']->set('app.key', 'base64:Hupx3yAySikrM2/edkZQNQHslgDWYfiBfCuSThJ5SK8=');
+    }
 }

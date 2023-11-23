@@ -9,6 +9,8 @@ This package adds an easy to use Livewire component to your application, which w
 
 It instantly supports the image uploads with zero work from you.
 
+> v2.0 of this package only supports Livewire v3.x. If you're still using Livewire 2.x, please use [v1.0](https://github.com/joelwmale/livewire-quill/tree/v1.0.0) of this package.
+
 ## Installation
 
 You can install the package via composer:

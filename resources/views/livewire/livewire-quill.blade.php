@@ -11,7 +11,7 @@
     var toolbar = JSON.parse(JSON.stringify(@JSON($toolbar)));
     var quillContainer = null;
 
-    document.addEventListener('livewire:load', function() {
+    document.addEventListener('livewire:initialized', function() {
       var content = null;
 
       function selectLocalImage() {
@@ -100,7 +100,17 @@
 
       // on content change
       content.on("text-change", function(delta, oldDelta, source) {
-        @this.emit('contentChanged', '{{ $quillId }}', content.root.innerHTML)
+        // debounce it
+        clearTimeout(quillContainer);
+
+        // set a timeout to see if the user is still typing
+        quillContainer = setTimeout(function() {
+          // set the content to the model
+          @this.dispatch('contentChanged', {
+            editorId: '{{ $quillId }}',
+            content: content.root.innerHTML
+          })
+        }, 500);
       });
     });
   </script>

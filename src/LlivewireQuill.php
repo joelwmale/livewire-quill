@@ -1,7 +1,5 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Joelwmale\LivewireQuill;
 
-class LivewireQuill
-{
-}
+class LivewireQuill {}

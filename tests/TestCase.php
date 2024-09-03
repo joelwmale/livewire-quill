@@ -2,11 +2,11 @@
 
 namespace Joelwmale\LivewireQuill\Tests;
 
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Facade;
-use Joelwmale\LivewireQuill\LivewireQuillServiceProvider;
 use Livewire\LivewireServiceProvider;
+use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Facades\Artisan;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Joelwmale\LivewireQuill\LivewireQuillServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -40,7 +40,7 @@ class TestCase extends Orchestra
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('view.paths', [
-            __DIR__.'/../views',
+            __DIR__ . '/../views',
             resource_path('views'),
         ]);
 

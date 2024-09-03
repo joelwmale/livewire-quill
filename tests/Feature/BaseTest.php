@@ -1,8 +1,8 @@
 <?php
 
+use Livewire\Livewire;
 use Illuminate\Support\Facades\Config;
 use Joelwmale\LivewireQuill\Http\Livewire\LivewireQuill;
-use Livewire\Livewire;
 
 beforeEach(function () {
     Config::set('livewire-quill.storage_folder', 'quill-images');

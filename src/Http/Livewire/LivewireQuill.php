@@ -2,9 +2,9 @@
 
 namespace Joelwmale\LivewireQuill\Http\Livewire;
 
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class LivewireQuill extends Component
 {

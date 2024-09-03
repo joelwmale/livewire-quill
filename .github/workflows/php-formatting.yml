@@ -1,0 +1,25 @@
+name: PHP Formatting
+
+on: pull_request
+
+jobs:
+  php-formatting:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+        - name: "Run Pint"
+          uses: aglipanci/laravel-pint-action@latest
+          with:
+            verboseMode: true
+            configPath: "pint.json"
+            pintVersion: 1.17.2
+
+        - name: Commit changes
+          uses: stefanzweifel/git-auto-commit-action@v5
+          with:
+            commit_message: "Apply Laravel Pint"
+            commit_options: '--no-verify --signoff'
+            file_pattern: "*.php"
+            commit_user_name: "Pixel Tech"
+            commit_user_email: "tech@wearepixel.com.au"
+            commit_author: "Pixel Tech<tech@wearepixel.com.au>"

@@ -1,13 +1,15 @@
 # Livewire Quill
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/joelwmale/livewire-quill.svg?style=flat-square)](https://packagist.org/packages/joelwmale/livewire-quill)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/joelwmale/livewire-quill/tests.yml?branch=master&label=Tests)](https://github.com/joelwmale/livewire-quill/actions?query=workflow%3ATests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/joelwmale/livewire-quill.svg?style=flat-square)](https://packagist.org/packages/joelwmale/livewire-quill)
+[![License](https://poser.pugx.org/joelwmale/livewire-quill/license.svg)](https://packagist.org/packages/joelwmale/livewire-quill)
 
 ---
 
 This package adds an easy to use Livewire component to your application, which will create and largely manage a [Quill]([Quill](https://quilljs.com/)) editor for you.
 
-It instantly supports the image uploads with zero work from you.
+It supports image uploads out of the box with zero work from you.
 
 > v2.0 of this package only supports Livewire v3.x. If you're still using Livewire 2.x, please use [v1.0](https://github.com/joelwmale/livewire-quill/tree/v1.0.0) of this package.
 

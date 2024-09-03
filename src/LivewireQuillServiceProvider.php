@@ -26,7 +26,7 @@ class LivewireQuillServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('livewire-quill', function () {
-            return new LivewireQuillFacade();
+            return new LivewireQuillFacade;
         });
     }
 

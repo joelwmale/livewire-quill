@@ -11,7 +11,7 @@
     var toolbar = JSON.parse(JSON.stringify(@JSON($toolbar)));
     var quillContainer = null;
 
-    document.addEventListener('livewire:initialized', function() {
+    function initQuill() {
       var content = null;
 
       function selectLocalImage() {
@@ -112,6 +112,14 @@
           })
         }, 500);
       });
+    }
+
+    document.addEventListener('livewire:navigated', () => {
+      setTimeout(function() {
+        initQuill();
+      }, 800);
+    }, {
+      once: true
     });
   </script>
 </div>

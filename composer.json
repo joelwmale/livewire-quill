@@ -1,6 +1,6 @@
 {
     "name": "joelwmale/livewire-quill",
-    "version": "3.0.2",
+    "version": "3.0.3",
     "description": "Easily add QuillJS with image support to any Laravel Livewire component.",
     "keywords": [
         "joelwmale",

@@ -61,6 +61,13 @@ class LivewireQuill extends Component
 
     public function render()
     {
+        $this->dispatch('livewire-quill:init', [
+            'quillId' => $this->quillId,
+            'data' => $this->data,
+            'classes' => $this->classes,
+            'toolbar' => $this->toolbar,
+        ]);
+
         return view('livewire-quill::livewire.livewire-quill');
     }
 }

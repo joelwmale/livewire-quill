@@ -1,14 +1,22 @@
 <div wire:ignore>
-    <div id="{{ $quillId }}" class="{{ $classes }} livewire-quill" name="{{ $quillId }}"></div>
+    <div
+        id="{{ $quillId }}"
+        class="{{ $classes }} livewire-quill"
+        name="{{ $quillId }}"
+        wire:key="quill-{{ $quillId }}"
+    ></div>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css" rel="stylesheet">
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css"
+        rel="stylesheet"
+    >
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.js"></script>
 
     <script>
         var toolbar = JSON.parse(JSON.stringify(@JSON($toolbar)));
         var quillContainer = null;
 
-        function initQuill(id) {
+        function initQuill(id, data) {
             var content = null;
             var init = true;
 
@@ -94,7 +102,7 @@
                 }
             });
 
-            content.root.innerHTML = @this.get('data');
+            content.root.innerHTML = data;
 
             // on content change
             content.on("text-change", function(delta, oldDelta, source) {
@@ -118,27 +126,15 @@
             init = false;
         }
 
-        document.addEventListener('livewire:navigated', () => {
-            setTimeout(() => {
-                document.querySelectorAll('.livewire-quill').forEach((element) => {
-                    if (!element.dataset.initialized) {
-                        initQuill(element.id);
-                        element.dataset.initialized = true;
-                    }
-                });
-            }, 800);
-        });
+        document.addEventListener('livewire-quill:init', (event) => {
+            var event = event.detail[0];
 
-        document.addEventListener('livewire-quill:init', () => {
-            setTimeout(() => {
-                document.querySelectorAll('.livewire-quill').forEach((element) => {
-                    console.log('here');
-                    if (!element.dataset.initialized) {
-                        initQuill(element.id);
-                        element.dataset.initialized = true;
-                    }
-                });
-            }, 800);
+            var quillContainer = document.getElementById(event.quillId);
+
+            if (!quillContainer.dataset.initialized) {
+                initQuill(event.quillId, event.data);
+                quillContainer.dataset.initialized = true;
+            }
         });
     </script>
 </div>

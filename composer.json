@@ -1,6 +1,6 @@
 {
     "name": "joelwmale/livewire-quill",
-    "version": "3.0.3",
+    "version": "3.0.4",
     "description": "Easily add QuillJS with image support to any Laravel Livewire component.",
     "keywords": [
         "joelwmale",
@@ -39,10 +39,7 @@
         }
     },
     "scripts": {
-        "post-autoload-dump": [
-            "@php ./vendor/bin/testbench package:discover --ansi",
-            "@php -r \"file_exists('artisan') && system('php artisan vendor:publish --tag=livewire-quill:assets --force');\""
-        ],
+        "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
         "format": "vendor/bin/pint"

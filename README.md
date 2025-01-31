@@ -23,6 +23,12 @@ You can install the package via composer:
 composer require joelwmale/livewire-quill
 ```
 
+Once installed, publish the assets:
+
+```bash
+php artisan vendor:publish --tag=livewire-quill:assets
+```
+
 ### Config (optional)
 
 After you've installed the package, you can optionally publish the config to change any defaults:

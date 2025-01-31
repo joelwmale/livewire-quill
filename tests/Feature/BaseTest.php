@@ -15,11 +15,33 @@ it('throws an exception if not quillId is passed in', function () {
 })->throws(Exception::class);
 
 it('mounts the component with default values', function () {
+    config(['livewire-quill.toolbar' => []]);
+
     Livewire::test(LivewireQuill::class, ['quillId' => 'testQuill'])
         ->assertSet('quillId', 'testQuill')
         ->assertSet('data', null)
         ->assertSet('classes', '')
         ->assertSet('toolbar', []);
+});
+
+it('mounts the toolbar from the config if it is set', function () {
+    config(['livewire-quill.toolbar' => [['bold', 'italic']]]);
+
+    Livewire::test(LivewireQuill::class, ['quillId' => 'testQuill'])
+        ->assertSet('quillId', 'testQuill')
+        ->assertSet('data', null)
+        ->assertSet('classes', '')
+        ->assertSet('toolbar', [['bold', 'italic']]);
+});
+
+it('merges the toolbar from the config if it is set', function () {
+    config(['livewire-quill.toolbar' => ['bold', 'italic']]);
+
+    Livewire::test(LivewireQuill::class, ['quillId' => 'testQuill', 'mergeToolbar' => true, 'toolbar' => ['underline']])
+        ->assertSet('quillId', 'testQuill')
+        ->assertSet('data', null)
+        ->assertSet('classes', '')
+        ->assertSet('toolbar', ['bold', 'italic', 'underline']);
 });
 
 it('mounts the component with custom values', function () {
@@ -28,6 +50,7 @@ it('mounts the component with custom values', function () {
         'data' => 'Initial content',
         'classes' => 'custom-class',
         'toolbar' => [['bold', 'italic']],
+        'mergeToolbar' => false,
     ])
         ->assertSet('quillId', 'customQuill')
         ->assertSet('data', 'Initial content')
@@ -42,6 +65,6 @@ it('renders the correct view', function () {
 
 it('includes necessary Quill scripts and styles', function () {
     Livewire::test(LivewireQuill::class, ['quillId' => 'scriptsQuill'])
-        ->assertSeeHtml('https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css')
-        ->assertSeeHtml('https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.js');
+        ->assertSeeHtml('quill.snow.min.css')
+        ->assertSeeHtml('quill.js');
 });

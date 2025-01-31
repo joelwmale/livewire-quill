@@ -73,6 +73,7 @@ class LivewireQuill extends Component
             $this->dispatch('livewire-quill:init', [
                 'quillId' => $this->quillId,
                 'data' => $this->data,
+                'placeholder' => $this->placeholder,
                 'classes' => $this->classes,
                 'toolbar' => $this->toolbar,
             ]);

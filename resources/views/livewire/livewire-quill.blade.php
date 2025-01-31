@@ -13,10 +13,9 @@
     <script src="/vendor/livewire-quill/quill.js"></script>
 
     <script>
-        var toolbar = JSON.parse(JSON.stringify(@JSON($toolbar)));
         var quillContainer = null;
 
-        function initQuill(id, data) {
+        function initQuill(id, data, placeholder, toolbar) {
             var content = null;
             var init = true;
 
@@ -71,7 +70,7 @@
                 modules: {
                     toolbar: toolbar,
                 },
-                placeholder: '{{ $placeholder }}',
+                placeholder: placeholder,
                 theme: "snow",
             });
 
@@ -133,7 +132,7 @@
             var quillContainer = document.getElementById(event.quillId);
 
             if (!quillContainer.dataset.initialized) {
-                initQuill(event.quillId, event.data);
+                initQuill(event.quillId, event.data, event.placeholder, event.toolbar);
                 quillContainer.dataset.initialized = true;
             }
         });

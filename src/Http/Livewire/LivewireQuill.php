@@ -10,14 +10,16 @@ class LivewireQuill extends Component
 {
     use WithFileUploads;
 
+    public $rendered = false;
+
     // configurable
     public $quillId;
-
     public $data;
-
     public $classes;
-
     public $toolbar;
+    public $placeholder;
+
+    public $mergeToolbar = true;
 
     // vendor
     public $quillImages;
@@ -27,13 +29,19 @@ class LivewireQuill extends Component
     public function mount(
         $quillId,
         $data = null,
+        $placeholder = null,
         $classes = '',
         $toolbar = [],
+        $mergeToolbar = true
     ) {
         $this->quillId = $quillId;
         $this->data = $data;
+        $this->placeholder = $placeholder;
         $this->classes = $classes;
-        $this->toolbar = $toolbar;
+        $this->toolbar = $mergeToolbar ? array_merge(
+            config('livewire-quill.toolbar'),
+            $toolbar
+        ) : $toolbar;
     }
 
     public function updatedQuillImages()
@@ -61,12 +69,16 @@ class LivewireQuill extends Component
 
     public function render()
     {
-        $this->dispatch('livewire-quill:init', [
-            'quillId' => $this->quillId,
-            'data' => $this->data,
-            'classes' => $this->classes,
-            'toolbar' => $this->toolbar,
-        ]);
+        if (! $this->rendered) {
+            $this->dispatch('livewire-quill:init', [
+                'quillId' => $this->quillId,
+                'data' => $this->data,
+                'classes' => $this->classes,
+                'toolbar' => $this->toolbar,
+            ]);
+        }
+
+        $this->rendered = true;
 
         return view('livewire-quill::livewire.livewire-quill');
     }

@@ -50,6 +50,33 @@ return [
      * or retained for future use (note: the package will never re-use the same image)
      */
     'clean_up_deleted_images' => env('LIVEWIRE_QUILL_CLEAN_UP_DELETED_IMAGES', true),
+
+    /*
+     * The base classes to use for all instances of the editor
+     */
+    'editor_classes' => env('LIVEWIRE_QUILL_EDITOR_CLASSES', 'bg-white'),
+
+    /**
+     * The toolbar options to use for all instances of the editor
+     */
+    'editor_toolbar' => env('LIVEWIRE_QUILL_EDITOR_TOOLBAR', [
+        [
+            [
+                'header' => [1, 2, 3, 4, 5, 6, false],
+            ],
+        ],
+        ['bold', 'italic', 'underline'],
+        [
+            [
+                'list' => 'ordered',
+            ],
+            [
+                'list' => 'bullet',
+            ],
+        ],
+        ['link'],
+        ['image'],
+    ]),
 ];
 ```
 
@@ -61,7 +88,8 @@ Use it in any Livewire component like so:
 @livewire('livewire-quill', [
     'quillId' => 'customQuillId',
     'data' => $content,
-    'classes' => 'bg-white',
+    'placeholder' => 'Type something...',
+    'classes' => 'bg-white text-primary', // optional classes that can be added to the editor, that are added for this instance only
     'toolbar' => [
         [
             [
@@ -80,6 +108,7 @@ Use it in any Livewire component like so:
         ['link'],
         ['image'],
     ],
+    'mergeToolbar' => true, // optional, if you want to merge the toolbar with the default toolbar configuration
 ])
 ```
 
@@ -113,6 +142,10 @@ A div is created with this id, this allows for easy use of multiple quill instan
 
 This is the initial value of the text editor (i.e: a previous saved version of the text editor)
 
+### Placeholder
+
+The placeholder text for the editor
+
 ### Classes
 
 Any custom classes you wish to add to the base editor class.
@@ -122,6 +155,12 @@ Note: for any customisation, we recommend using CSS to make changes. You can alw
 ### Toolbar
 
 An array of arrays to manage and create a toolbar for Quill to use
+
+### MergeToolbar
+
+If you want to merge the toolbar with the default toolbar configuration (i.e the one set in the config file) then set this to true.
+
+If you set this to false, the toolbar will be replaced with the one you provide.
 
 ## Initialising Livewire Quill Manually
 

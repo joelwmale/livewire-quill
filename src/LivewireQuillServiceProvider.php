@@ -44,5 +44,9 @@ class LivewireQuillServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path('views/vendor/livewire-quill'),
         ], 'livewire-quill:views');
+
+        $this->publishes([
+            __DIR__ . '/../public' => public_path('vendor/livewire-quill'),
+        ], 'livewire-quill:assets');
     }
 }

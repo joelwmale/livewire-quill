@@ -1,16 +1,16 @@
 <div wire:ignore>
     <div
         id="{{ $quillId }}"
-        class="{{ $classes }} livewire-quill"
+        class="{{ $classes }} {{ config('livewire-quill.editor_classes') }} livewire-quill"
         name="{{ $quillId }}"
         wire:key="quill-{{ $quillId }}"
     ></div>
 
     <link
-        href="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.snow.min.css"
+        href="/vendor/livewire-quill/quill.snow.min.css"
         rel="stylesheet"
     >
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/1.3.7/quill.js"></script>
+    <script src="/vendor/livewire-quill/quill.js"></script>
 
     <script>
         var toolbar = JSON.parse(JSON.stringify(@JSON($toolbar)));
@@ -71,6 +71,7 @@
                 modules: {
                     toolbar: toolbar,
                 },
+                placeholder: '{{ $placeholder }}',
                 theme: "snow",
             });
 

@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "css-minify": "^2.1.0"
+  },
+  "scripts": {
+    "minify": "rm -f ./public/quill.snow.min.css && css-minify -f ./resources/css/quill.snow.css -o ./public"
+  }
+}

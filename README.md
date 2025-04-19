@@ -11,6 +11,15 @@ This package adds an easy to use Livewire component to your application, which w
 
 It supports image uploads out of the box with zero work from you.
 
+## Updating from v4.x to v5.x
+
+If you're updating from v4.x to v5.x, please note you'll need to force publish the assets again:
+
+```bash
+php artisan vendor:publish --tag=livewire-quill:assets --force
+```
+This is due to the fact that the underlying Quill library has been updated to v2.x, and without force, the assets will not be updated.
+
 ## Livewire v2.x Support
 
 v2.0 of this package only supports Livewire v3.x. If you're still using Livewire 2.x, please use [v1.0](https://github.com/joelwmale/livewire-quill/tree/v1.0.0) of this package.

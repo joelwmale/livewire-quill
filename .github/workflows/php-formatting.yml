@@ -15,7 +15,7 @@ jobs:
             pintVersion: 1.17.2
 
         - name: Commit changes
-          uses: stefanzweifel/git-auto-commit-action@v5
+          uses: stefanzweifel/git-auto-commit-action@v7
           with:
             commit_message: "Apply Laravel Pint"
             commit_options: '--no-verify --signoff'

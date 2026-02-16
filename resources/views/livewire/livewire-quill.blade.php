@@ -6,12 +6,15 @@
         wire:key="quill-{{ $quillId }}"
     ></div>
 
+    @assets
     <link
         href="/vendor/livewire-quill/quill.snow.min.css"
         rel="stylesheet"
     >
     <script src="/vendor/livewire-quill/quill.js"></script>
+    @endassets
 
+    @script
     <script>
         var quillContainer = null;
 
@@ -137,4 +140,5 @@
             }
         });
     </script>
+    @endscript
 </div>

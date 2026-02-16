@@ -16,7 +16,7 @@
 
     @script
     <script>
-        var quillContainer = null;
+        let quillContainer = null;
 
         function initQuill(id, data, placeholder, toolbar) {
             var content = null;

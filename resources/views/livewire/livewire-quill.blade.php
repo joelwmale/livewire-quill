@@ -119,7 +119,7 @@
                 // set a timeout to see if the user is still typing
                 quillContainer = setTimeout(function() {
                     // set the content to the model
-                    @this.dispatch('contentChanged', {
+                    Livewire.dispatch('contentChanged', {
                         editorId: content.container.id,
                         content: content.root.innerHTML
                     })

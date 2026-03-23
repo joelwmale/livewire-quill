@@ -18,7 +18,7 @@
     <script>
         let quillContainer = null;
 
-        function initQuill(id, data, placeholder, toolbar) {
+        function initQuill(id, data, placeholder, toolbar, lazy) {
             var content = null;
             var init = true;
 
@@ -108,23 +108,36 @@
             content.root.innerHTML = data;
 
             // on content change
-            content.on("text-change", function(delta, oldDelta, source) {
-                if (init) {
-                    return;
-                }
+            if (lazy) {
+                content.root.addEventListener('blur', function() {
+                    if (init) {
+                        return;
+                    }
 
-                // debounce it
-                clearTimeout(quillContainer);
-
-                // set a timeout to see if the user is still typing
-                quillContainer = setTimeout(function() {
-                    // set the content to the model
                     Livewire.dispatch('contentChanged', {
                         editorId: content.container.id,
                         content: content.root.innerHTML
-                    })
-                }, 500);
-            });
+                    });
+                });
+            } else {
+                content.on("text-change", function(delta, oldDelta, source) {
+                    if (init) {
+                        return;
+                    }
+
+                    // debounce it
+                    clearTimeout(quillContainer);
+
+                    // set a timeout to see if the user is still typing
+                    quillContainer = setTimeout(function() {
+                        // set the content to the model
+                        Livewire.dispatch('contentChanged', {
+                            editorId: content.container.id,
+                            content: content.root.innerHTML
+                        })
+                    }, 500);
+                });
+            }
 
             init = false;
         }
@@ -135,7 +148,7 @@
             var quillContainer = document.getElementById(event.quillId);
 
             if (!quillContainer.dataset.initialized) {
-                initQuill(event.quillId, event.data, event.placeholder, event.toolbar);
+                initQuill(event.quillId, event.data, event.placeholder, event.toolbar, event.lazy);
                 quillContainer.dataset.initialized = true;
             }
         });

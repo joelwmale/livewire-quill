@@ -58,6 +58,16 @@ it('mounts the component with custom values', function () {
         ->assertSet('toolbar', [['bold', 'italic']]);
 });
 
+it('mounts with lazy false by default', function () {
+    Livewire::test(LivewireQuill::class, ['quillId' => 'lazyQuill'])
+        ->assertSet('lazy', false);
+});
+
+it('mounts with lazy true when passed', function () {
+    Livewire::test(LivewireQuill::class, ['quillId' => 'lazyQuill', 'lazy' => true])
+        ->assertSet('lazy', true);
+});
+
 it('renders the correct view', function () {
     $component = Livewire::test(LivewireQuill::class, ['quillId' => 'renderQuill']);
     $component->assertViewIs('livewire-quill::livewire.livewire-quill');

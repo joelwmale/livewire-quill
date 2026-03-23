@@ -20,6 +20,7 @@ class LivewireQuill extends Component
     public $placeholder;
 
     public $mergeToolbar = true;
+    public $lazy = false;
 
     // vendor
     public $quillImages;
@@ -32,12 +33,14 @@ class LivewireQuill extends Component
         $placeholder = null,
         $classes = '',
         $toolbar = [],
-        $mergeToolbar = true
+        $mergeToolbar = true,
+        $lazy = false
     ) {
         $this->quillId = $quillId;
         $this->data = $data;
         $this->placeholder = $placeholder;
         $this->classes = $classes;
+        $this->lazy = $lazy;
         $this->toolbar = $mergeToolbar ? array_merge(
             config('livewire-quill.toolbar'),
             $toolbar
@@ -76,6 +79,7 @@ class LivewireQuill extends Component
                 'placeholder' => $this->placeholder,
                 'classes' => $this->classes,
                 'toolbar' => $this->toolbar,
+                'lazy' => $this->lazy,
             ]);
         }
 

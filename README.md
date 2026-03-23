@@ -124,6 +124,7 @@ Use it in any Livewire component like so:
         ['image'],
     ],
     'mergeToolbar' => true, // optional, if you want to merge the toolbar with the default toolbar configuration
+    'lazy' => false, // optional, if true the editor will only sync content to the server on blur instead of every keystroke
 ])
 ```
 
@@ -176,6 +177,19 @@ An array of arrays to manage and create a toolbar for Quill to use
 If you want to merge the toolbar with the default toolbar configuration (i.e the one set in the config file) then set this to true.
 
 If you set this to false, the toolbar will be replaced with the one you provide.
+
+### Lazy
+
+By default, the editor syncs content to the server on every keystroke (debounced at 500ms). If you'd prefer to only sync when the user finishes editing and leaves the editor, set `lazy` to `true`:
+
+```php
+@livewire('livewire-quill', [
+    'quillId' => 'myEditor',
+    'lazy' => true,
+])
+```
+
+This is useful when you don't want the overhead of frequent server round-trips, such as in forms where the content only needs to be available on submit.
 
 ## Initialising Livewire Quill Manually
 

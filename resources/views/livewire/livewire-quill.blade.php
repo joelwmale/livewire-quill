@@ -85,6 +85,7 @@
                 if (source === "user") {
                     let currrentContents = content.getContents();
                     let diff = currrentContents.diff(oldDelta);
+                    let imageDeleted = false;
                     try {
                         // loop through diff.ops to find image
                         diff.ops.forEach((op) => {
@@ -95,12 +96,22 @@
 
                                     if (imageUrl) {
                                         @this.deleteImage(imageUrl);
+                                        imageDeleted = true;
                                     }
                                 }
                             }
                         });
                     } catch (_error) {
 
+                    }
+
+                    // in lazy mode, sync content immediately when an image is deleted
+                    // so the parent model doesn't retain a broken image reference
+                    if (lazy && imageDeleted) {
+                        Livewire.dispatch('contentChanged', {
+                            editorId: content.container.id,
+                            content: content.root.innerHTML
+                        });
                     }
                 }
             });
@@ -109,11 +120,16 @@
 
             // on content change
             if (lazy) {
-                content.root.addEventListener('blur', function() {
-                    if (init) {
+                var initialContent = content.root.innerHTML;
+                content.container.addEventListener('focusout', function(e) {
+                    // ignore focus moving within the editor (e.g. toolbar button clicks)
+                    if (content.container.contains(e.relatedTarget)) {
                         return;
                     }
-
+                    // only dispatch if content actually changed
+                    if (content.root.innerHTML === initialContent) {
+                        return;
+                    }
                     Livewire.dispatch('contentChanged', {
                         editorId: content.container.id,
                         content: content.root.innerHTML

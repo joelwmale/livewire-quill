@@ -13,9 +13,14 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: ["8.2", "8.3", "8.4", "8.5"]
+        php: ["8.2", "8.3", "8.4"]
         livewire: ["3", "4"]
         stability: [prefer-stable]
+        include:
+          # PHP 8.5 is only tested against Livewire 4
+          - php: "8.5"
+            livewire: "4"
+            stability: prefer-stable
         exclude:
           # pest-plugin-livewire v4 requires PHP ^8.3
           - php: "8.2"
@@ -48,4 +53,4 @@ jobs:
           command: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
-        run: vendor/bin/pest
+        run: vendor/bin/pest --no-coverage

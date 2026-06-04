@@ -36,6 +36,10 @@ jobs:
       - name: Require Livewire version
         run: composer require "livewire/livewire:^${{ matrix.livewire }}.0" --no-update --no-interaction
 
+      - name: Require Pest v4 for Livewire 4 runs
+        if: matrix.livewire == '4'
+        run: composer require "pestphp/pest:^4.0" "pestphp/pest-plugin-livewire:^4.0" --no-update --no-interaction --dev
+
       - name: Install dependencies
         uses: nick-fields/retry@v3
         with:

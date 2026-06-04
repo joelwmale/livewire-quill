@@ -18,7 +18,7 @@
     <script>
         let quillContainer = null;
 
-        function initQuill(id, data, placeholder, toolbar) {
+        function initQuill(id, data, placeholder, toolbar, lazy) {
             var content = null;
             var init = true;
 
@@ -85,6 +85,7 @@
                 if (source === "user") {
                     let currrentContents = content.getContents();
                     let diff = currrentContents.diff(oldDelta);
+                    let imageDeleted = false;
                     try {
                         // loop through diff.ops to find image
                         diff.ops.forEach((op) => {
@@ -95,6 +96,7 @@
 
                                     if (imageUrl) {
                                         @this.deleteImage(imageUrl);
+                                        imageDeleted = true;
                                     }
                                 }
                             }
@@ -102,29 +104,56 @@
                     } catch (_error) {
 
                     }
+
+                    // in lazy mode, sync content immediately when an image is deleted
+                    // so the parent model doesn't retain a broken image reference
+                    if (lazy && imageDeleted) {
+                        Livewire.dispatch('contentChanged', {
+                            editorId: content.container.id,
+                            content: content.root.innerHTML
+                        });
+                    }
                 }
             });
 
             content.root.innerHTML = data;
 
             // on content change
-            content.on("text-change", function(delta, oldDelta, source) {
-                if (init) {
-                    return;
-                }
-
-                // debounce it
-                clearTimeout(quillContainer);
-
-                // set a timeout to see if the user is still typing
-                quillContainer = setTimeout(function() {
-                    // set the content to the model
+            if (lazy) {
+                var initialContent = content.root.innerHTML;
+                content.container.addEventListener('focusout', function(e) {
+                    // ignore focus moving within the editor (e.g. toolbar button clicks)
+                    if (content.container.contains(e.relatedTarget)) {
+                        return;
+                    }
+                    // only dispatch if content actually changed
+                    if (content.root.innerHTML === initialContent) {
+                        return;
+                    }
                     Livewire.dispatch('contentChanged', {
                         editorId: content.container.id,
                         content: content.root.innerHTML
-                    })
-                }, 500);
-            });
+                    });
+                });
+            } else {
+                content.on("text-change", function(delta, oldDelta, source) {
+                    if (init) {
+                        return;
+                    }
+
+                    // debounce it
+                    clearTimeout(quillContainer);
+
+                    // set a timeout to see if the user is still typing
+                    quillContainer = setTimeout(function() {
+                        // set the content to the model
+                        Livewire.dispatch('contentChanged', {
+                            editorId: content.container.id,
+                            content: content.root.innerHTML
+                        })
+                    }, 500);
+                });
+            }
 
             init = false;
         }
@@ -135,7 +164,7 @@
             var quillContainer = document.getElementById(event.quillId);
 
             if (!quillContainer.dataset.initialized) {
-                initQuill(event.quillId, event.data, event.placeholder, event.toolbar);
+                initQuill(event.quillId, event.data, event.placeholder, event.toolbar, event.lazy);
                 quillContainer.dataset.initialized = true;
             }
         });

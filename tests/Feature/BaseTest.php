@@ -58,6 +58,28 @@ it('mounts the component with custom values', function () {
         ->assertSet('toolbar', [['bold', 'italic']]);
 });
 
+it('mounts with lazy false by default', function () {
+    Livewire::test(LivewireQuill::class, ['quillId' => 'lazyQuill'])
+        ->assertSet('lazy', false);
+});
+
+it('mounts with lazy true when passed', function () {
+    Livewire::test(LivewireQuill::class, ['quillId' => 'lazyQuill', 'lazy' => true])
+        ->assertSet('lazy', true);
+});
+
+it('includes lazy flag in the init event payload', function () {
+    $component = Livewire::test(LivewireQuill::class, ['quillId' => 'lazyQuill', 'lazy' => true]);
+
+    // Reset rendered so the event fires again during the next Livewire lifecycle,
+    // where effects (dispatched events) are captured and assertable.
+    // Livewire passes ($eventName, $params) to the assertDispatched callback.
+    $component->set('rendered', false)
+        ->assertDispatched('livewire-quill:init', function ($name, $params) {
+            return ($params[0]['lazy'] ?? false) === true;
+        });
+});
+
 it('renders the correct view', function () {
     $component = Livewire::test(LivewireQuill::class, ['quillId' => 'renderQuill']);
     $component->assertViewIs('livewire-quill::livewire.livewire-quill');
